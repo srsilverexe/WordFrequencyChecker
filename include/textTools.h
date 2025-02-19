@@ -2,8 +2,8 @@
 #define TEXT_TOOLS_H
 
 #include <stddef.h>
-char* normalizeText(const char *text);
-char** splitTextInWords(const char *text, size_t *wordCount);
-void freeWordsList(char **wordsList);
+char  *normalizeText(const char *text);
+char **splitTextInWords(const char *text, size_t *wordCount);
+void   freeWordsList(char **wordsList);
 
-#endif // TEXT_TOOLS_H
+#endif  // TEXT_TOOLS_H

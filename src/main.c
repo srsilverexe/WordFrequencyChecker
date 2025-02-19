@@ -1,8 +1,8 @@
 #include <ctype.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <string.h>
 #include <sys/types.h>
 
@@ -18,7 +18,7 @@ typedef enum { MODE_LINEAR,
 // Function declarations
 void      printHelp(void);
 u_int64_t getFileSize(FILE *file);
-void      linearMode(Item** itemList, size_t* itemListSize, char** wordsList, const size_t wordsListSize);
+void      linearMode(Item **itemList, size_t *itemListSize, char **wordsList, const size_t wordsListSize);
 
 int main(int argc, char *argv[]) {
     char        *filePath = NULL;
@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
                     return 1;
                 }
                 char *normalizedText = normalizeText(argv[++i]);  // Normalize the input text
-                
+
                 // Set the search mode based on the argument passed
                 if (strcmp(normalizedText, "linear") == 0) {
                     mode = MODE_LINEAR;
@@ -109,12 +109,12 @@ int main(int argc, char *argv[]) {
         // Hash table mode (to be implemented)
     } else {
         // Allocate initial space for items
-        Item  *items     = calloc(10, sizeof(Item));
+        Item  *items         = calloc(10, sizeof(Item));
         size_t itemsListSize = 10;
 
         if (mode == MODE_LINEAR) {
             linearMode(&items, &itemsListSize, wordsList, wordsListSize);
-        } else { // MODE_BINARY
+        } else {  // MODE_BINARY
             // To be implemented
         }
 
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
             }
         }
         printf("Most repeated word: %-15s\tRepeat Times: %-5i\n", items[mostRepeatedItemIdx].key, items[mostRepeatedItemIdx].value);
-        
+
         // Free allocated memory
         free(items);
     }
@@ -158,4 +158,3 @@ u_int64_t getFileSize(FILE *file) {
     rewind(file);
     return fileSize;
 }
-

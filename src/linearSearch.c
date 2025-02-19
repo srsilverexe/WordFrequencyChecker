@@ -5,7 +5,8 @@
 // Function to perform a linear search on an array of Items
 Item *linearSearch(Item *itemArray, size_t arraySize, const char *keyToFind) {
     // Check if the array or key is NULL to prevent errors
-    if (itemArray == NULL || keyToFind == NULL) return NULL;
+    if (itemArray == NULL || keyToFind == NULL)
+        return NULL;
 
     // Iterate through the array to find the matching key
     for (size_t i = 0; i < arraySize; i++) {
@@ -20,4 +21,3 @@ Item *linearSearch(Item *itemArray, size_t arraySize, const char *keyToFind) {
 
     return NULL;  // Return NULL if the key is not found
 }
-
