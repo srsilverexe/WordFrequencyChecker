@@ -158,3 +158,64 @@ u_int64_t getFileSize(FILE *file) {
     rewind(file);
     return fileSize;
 }
+
+void linearMode(Item** itemList, size_t* itemListSize, char** wordsList, const size_t wordsListSize) {
+    for (size_t wordListIdx = 0; wordListIdx < wordsListSize; wordListIdx++) {
+        // Search if the current word already exists in the items array using a linear search.
+        Item* searchedItem = linearSearch(*itemList, *itemListSize, wordsList[wordListIdx]);
+        if (searchedItem == NULL) { // If the word is not found...
+            bool inserted = false;
+            
+            // Try to find an empty slot (i.e., where key == NULL) in the current array.
+            for (size_t i = 0; i < *itemListSize; i++) {
+                if ((*itemList)[i].key == NULL) {
+                    (*itemList)[i].key = strdup(wordsList[wordListIdx]);
+                    (*itemList)[i].value = 1;
+                    inserted = true;
+                    break;
+                }
+            }
+            
+            // If no empty slot is available, reallocate the array with additional space.
+            if (!inserted) {
+                size_t newSize = *itemListSize + 10;
+                // Allocate a new array with the increased size.
+                Item* newItemList = calloc(newSize, sizeof(Item));
+                if (newItemList == NULL) {
+                    perror("calloc failed");
+                    exit(EXIT_FAILURE);
+                }
+                
+                // Copy the existing items into the new array.
+                for (size_t i = 0; i < *itemListSize; i++) {
+                    if ((*itemList)[i].key != NULL) {
+                        newItemList[i].key = strdup((*itemList)[i].key);
+                        newItemList[i].value = (*itemList)[i].value;
+                        free((*itemList)[i].key);
+                    } else {
+                        newItemList[i].key = NULL;
+                        newItemList[i].value = 0;
+                    }
+                }
+                
+                // Free the old array and update the pointer and its size.
+                free(*itemList);
+                *itemList = newItemList;
+                *itemListSize = newSize;
+                
+                // Insert the new word into the first available slot in the resized array.
+                for (size_t i = 0; i < *itemListSize; i++) {
+                    if ((*itemList)[i].key == NULL) {
+                        (*itemList)[i].key = strdup(wordsList[wordListIdx]);
+                        (*itemList)[i].value = 1;
+                        break;
+                    }
+                }
+            }
+        } else {
+            // If the word is already present in the array, increment its occurrence count.
+            searchedItem->value++;
+        }
+    }
+}
+
