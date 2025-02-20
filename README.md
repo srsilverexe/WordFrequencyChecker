@@ -9,7 +9,7 @@ This project is useful for those who want to study and compare different search 
 
 ✅ Linear Search - Implemented and functional
 
-❌ Binary Search - In progress
+✅ Binary Search - In progress
 
 ❌ Hash Table - In progress
 
@@ -54,7 +54,7 @@ bin/WordFrequencyChecker -f <file_path>
 ## Example usage:
 
 ```sh
-bin/WordFrequencyChecker -f bin/largeText.txt -m linear
+./bin/WordFrequencyChecker -f bin/largeText.txt -m linear
 ```
 ## Contribution
 
