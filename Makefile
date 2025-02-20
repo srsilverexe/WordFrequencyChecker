@@ -1,20 +1,22 @@
 TARGET=WordFrequencyChecker
 CC=gcc
+CFLAGS=-g
 SRC=src/main.c src/binarySearch.c src/FNV1a.c \
-	 src/hashTable.c src/linearSearch.c src/textTools.c
+	src/hashTable.c src/linearSearch.c src/textTools.c \
+	src/item.c
 OBJS=$(SRC:src/%.c=obj/%.o)
 
 all: clear $(TARGET)
 
 $(TARGET):$(OBJS)
 	mkdir -p bin
-	$(CC) -g -o bin/$(TARGET) $(OBJS)
+	$(CC) $(CFLAGS) -o bin/$(TARGET) $(OBJS)
 
 obj/%.o:src/%.c
 	mkdir -p obj
-	$(CC) -c -MMD -MP $< -o $@
+	$(CC) $(CFLAGS) -c -MMD -MP $< -o $@
 
 -include $(OBJS:.o=.d)
 
 clear:
-	rm -rf obj	
+	rm -rf obj
