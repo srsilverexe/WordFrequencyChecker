@@ -9,7 +9,7 @@ This project is useful for those who want to study and compare different search 
 
 ✅ Linear Search - Implemented and functional
 
-✅ Binary Search - In progress
+✅ Binary Search - Implemented and functional
 
 ❌ Hash Table - In progress
 
